@@ -1,0 +1,48 @@
+{
+  "name": "Ad Hide",
+  "manifest_version": 2,
+  "version": "1.0",
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "contextMenus"
+  ],
+  "background": {
+    "scripts": [
+      "jquery-1.11.3.min.js",
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "description": "Highlight ads on real astate web sites.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.yad2.co.il/realestate/forsale?*"
+      ],
+      "js": [
+        "jquery-1.11.3.min.js",
+        "ad_hide_content_script.js",
+        "yad2_handler.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://www.madlan.co.il/*/FOR_SALE/*"
+      ],
+      "js": [
+        "jquery-1.11.3.min.js",
+        "ad_hide_content_script.js",
+        "madlan_handler.js"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "context-menu-toggle.png"
+  }
+}
