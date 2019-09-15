@@ -1,20 +1,38 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Ad Hide Configuration</title>
+        <title>Ad Ignore Configuration</title>
         <link rel="stylesheet" type="text/css" href="options.css">
     </head>
     <body>
         <div>
             <button class="collapsible">Yad2</button>
             <div class="content" style="display: block;">
-                Marked Ad Color:
-                <input type="color" id="markedAdColorYad2" name="head" value="#e66465">
+				<div>
+					Handle Ad:
+					<select id="ignoredAdHandle_yad2">
+						<option value="hide">Hide</option>
+						<option value="color">Color</option>
+					</select>
+				</div>
+				<div id="markedAdColorSection_yad2">
+					Color:
+					<input type="color" id="markedAdColor_yad2" name="head" value="#e66465">
+				</div>
             </div>
             <button class="collapsible">Madlan</button>
             <div class="content" style="display: block;">
-                Marked Ad Color:
-                <input type="color" id="markedAdColorMadlan" name="head" value="#e66465">
+				<div>
+					Handle Ad:
+					<select id="ignoredAdHandle_madlan">
+						<option value="hide">Hide</option>
+						<option value="color">Color</option>
+					</select>
+				</div>
+				<div id="markedAdColorSection_madlan">
+					Color:
+					<input type="color" id="markedAdColor_madlan" name="head" value="#e66465">
+				</div>
             </div>
         </div>
         <script src="options.js"></script>

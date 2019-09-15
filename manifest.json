@@ -1,5 +1,5 @@
 {
-  "name": "Ad Hide",
+  "name": "Ad Ignore",
   "manifest_version": 2,
   "version": "1.0",
   "permissions": [
@@ -27,7 +27,7 @@
       ],
       "js": [
         "jquery-1.11.3.min.js",
-        "ad_hide_content_script.js",
+        "ad_ignore_content_script.js",
         "yad2_handler.js"
       ]
     },
@@ -37,7 +37,7 @@
       ],
       "js": [
         "jquery-1.11.3.min.js",
-        "ad_hide_content_script.js",
+        "ad_ignore_content_script.js",
         "madlan_handler.js"
       ]
     }

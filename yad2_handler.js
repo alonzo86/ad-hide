@@ -5,6 +5,7 @@ const adsParentName = '.feed_list';
 const contentChangeParentName = null;
 const DEFAULT_MARKED_AD_COLOR = '#f9fc21';
 
+var ignoredAdHandle = 'hide';
 var markedAdColor = DEFAULT_MARKED_AD_COLOR;
 
 chrome.storage.sync.get(storageKey, function (items) {
@@ -13,7 +14,9 @@ chrome.storage.sync.get(storageKey, function (items) {
         if (options.markedAdColor) {
             markedAdColor = options.markedAdColor;
         }
-
+		if (options.ignoredAdHandle) {
+            ignoredAdHandle = options.ignoredAdHandle;
+        }
     }
 });
 
@@ -27,7 +30,11 @@ function getId(element) {
 
 function setMarkState(element, mark) {
 	var selectedElement = $(element).children()[0];
-	$(selectedElement).css('background-color', mark ? markedAdColor : 'white');
+	if (ignoredAdHandle === 'hide') {
+		$(selectedElement).css('visibility', mark ? 'hidden' : 'visible');
+	} else {
+		$(selectedElement).css('background-color', mark ? markedAdColor : 'white');
+	}
 }
 
 function findChild(parent, id) {
