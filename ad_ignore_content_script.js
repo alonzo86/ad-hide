@@ -8,11 +8,11 @@ $(function () {
     var handler;
 
     chrome.storage.sync.get(storageKey, function (items) {
-        if (items[storageKey] && items[storageKey].ids) {
-            var ids = items[storageKey].ids;
-            ids.forEach(function (id) {
-                var ad = parent.find(`#${id}`)[0];
-                setMarkState(ad, true);
+        if (items[storageKey] && items[storageKey].ads) {
+            var ads = items[storageKey].ads;
+            ads.forEach(function (ad) {
+                var adElement = parent.find(`#${ad.id}`)[0];
+                setMarkState(adElement, true);
             });
         }
     });
@@ -42,20 +42,21 @@ $(function () {
             var id = getId(parent);
             chrome.storage.sync.get(storageKey, function (items) {
                 var data = items[storageKey] || {};
-                var ids = [];
-                if (data.ids) {
-                    ids = data.ids;
+                var ads = [];
+                if (data.ads) {
+                    ads = data.ads;
                 }
-                var idIndex = ids.indexOf(id);
-                if (idIndex >= 0) {
-                    ids.splice(idIndex, 1);
+                var adIndex = ads.findIndex(ad => ad.id === id);
+                if (adIndex >= 0) {
+                    ads.splice(adIndex, 1);
                 } else {
-                    ids.push(id);
+					var adData = getAdData(parent[0]);
+                    ads.push({ id, data: adData });
                 }
-                data.ids = ids;
+                data.ads = ads;
                 chrome.storage.sync.set({[storageKey]: data}, function () {
                     console.log(`[AdIgnore]: id ${id} saved successfully`);
-                    if (idIndex >= 0) {
+                    if (adIndex >= 0) {
                         setMarkState(parent[0], false);
                     } else {
                         setMarkState(parent[0], true);
@@ -70,11 +71,11 @@ $(function () {
 function initAds(parent, storageKey) {
     console.log('[AdIgnore]: Initializing marked ads');
     chrome.storage.sync.get(storageKey, function (items) {
-        if (items[storageKey] && items[storageKey].ids) {
-            var ids = items[storageKey].ids;
-            ids.forEach(function (id) {
-                var ad = findChild(parent, id);
-                setMarkState(ad, true);
+        if (items[storageKey] && items[storageKey].ads) {
+            var ads = items[storageKey].ads;
+            ads.forEach(function (ad) {
+                var adElement = findChild(parent, ad.id);
+                setMarkState(adElement, true);
             });
         }
     });

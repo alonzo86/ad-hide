@@ -28,6 +28,10 @@ function getId(element) {
 	return element.attr('itemid');
 }
 
+function getAdData(element) {
+	return { info: element.innerText, image: $(element).find('img')[0].currentSrc };
+}
+
 function setMarkState(element, mark) {
 	var selectedElement = $(element).children()[0];
 	if (ignoredAdHandle === 'hide') {

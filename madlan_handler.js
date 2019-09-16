@@ -28,6 +28,11 @@ function getId(element) {
     return element.attr('id');
 }
 
+function getAdData(element) {
+	var backgroundImage = element.firstChild.firstChild.style.backgroundImage;
+	return { info: element.innerText, image: backgroundImage.slice(5, backgroundImage.length - 2) };
+}
+
 function setMarkState(element, mark) {
 	if (ignoredAdHandle === 'hide') {
 		$(element).css('visibility', mark ? 'hidden' : 'visible');

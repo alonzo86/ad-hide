@@ -19,7 +19,7 @@
     "page": "options.html",
     "open_in_tab": false
   },
-  "description": "Highlight ads on real astate web sites.",
+  "description": "Un-favorite ads on real astate web sites.",
   "content_scripts": [
     {
       "matches": [

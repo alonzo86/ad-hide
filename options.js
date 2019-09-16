@@ -26,13 +26,17 @@ setDefaultMarkedAdColor(STORAGE_KEY_YAD2);
 function setDefaultMarkedAdColor(storageKey) {
     chrome.storage.sync.get(storageKey, function (items) {
         var options = {};
+		var ads = [];
+		if (items[storageKey] && items[storageKey].ads) {
+			ads = items[storageKey].ads;
+		}
 		if (items[storageKey] && items[storageKey].options) {
 			options = items[storageKey].options;
 		}
         if (!options.markedAdColor) {
             options.markedAdColor = DEFAULT_MARKED_AD_COLOR;
         }
-		if (!options.markedAdHandle) {
+		if (!options.ignoredAdHandle) {
 			options.ignoredAdHandle = 'hide';
 		}
 		var ignoredAdHandleSelector = document.getElementById(`ignoredAdHandle_${storageKey}`);
@@ -48,6 +52,8 @@ function setDefaultMarkedAdColor(storageKey) {
 		var markedAdColorSelector = document.getElementById(`markedAdColor_${storageKey}`);
 		console.log(`[AdIgnore]: Setting Marked Ad Color for ${storageKey} to ${options.markedAdColor}`);
 		markedAdColorSelector.value = options.markedAdColor;
+		
+		initAdsList(ads, storageKey);
     });
 }
 
@@ -89,4 +95,27 @@ function markedAdColorChanged(event, storageKey) {
             console.log(`[AdIgnore]: Marked Ad Color for ${storageKey} saved successfully`);
         });
     });
+}
+
+function initAdsList(ads, storageKey) {
+	var imageWidth = storageKey === 'madlan' ? 70 : 120;
+	var imageHeight = storageKey === 'madlan' ? 120 : 70;
+	var adsSection = document.getElementById(`adsList_${storageKey}`);
+	ads.forEach(ad => {
+		var div = document.createElement('div');
+		div.style.display = 'flex';
+		div.style['margin-bottom'] = '1rem';
+		div.style['width'] = '16rem';
+		div.style['background-color'] = 'white';
+		var img = document.createElement('img');
+		img.setAttribute('src', ad.data.image);
+		img.setAttribute('width', imageWidth);
+		img.setAttribute('height', imageHeight);
+		div.appendChild(img);
+		var span = document.createElement('span');
+		span.innerText = ad.data.info;
+		span.style['margin-left'] = '1rem';
+		div.appendChild(span);
+		adsSection.appendChild(div);
+	});
 }
